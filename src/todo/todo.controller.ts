@@ -28,7 +28,7 @@ export class TodoController {
   }
 
   @Post()
-  async createTodo(@Body() todoItem: CreateTodoDto): Promise<TodoEntity> {
+  async createTodo(@Body() todoItem: CreateTodoDto) {
     return await this.todoService.createTodo(todoItem);
   }
 

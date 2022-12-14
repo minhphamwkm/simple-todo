@@ -1,36 +1,68 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodoEntity } from '../entities/todo.entity';
 
 @Injectable()
 export class TodoService {
-  @InjectRepository(TodoEntity)
-  private readonly repository: Repository<TodoEntity>;
+  @InjectDataSource() private readonly todoDataSource: DataSource;
 
   async getAllTodo() {
-    return await this.repository.find();
+    return await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .select('todo')
+      .getMany();
   }
 
   async getDetailTodoItem(id: number) {
-    return await this.repository.findOneBy({ id: id });
+    return await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .select('todo')
+      .where('id=:id', { id: id })
+      .getOne();
   }
 
   async createTodo(todoItem: CreateTodoDto) {
-    return await this.repository.save(this.repository.create(todoItem));
+    const createdTodo = await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .insert()
+      .into(TodoEntity)
+      .values(todoItem)
+      .execute();
+    return this.getDetailTodoItem(createdTodo.identifiers[0].id);
   }
 
   async updateTodo(id: number, todoItem: UpdateTodoDto) {
-    return await this.repository.update(id, todoItem);
+    await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .update(TodoEntity)
+      .set(todoItem)
+      .where('id=:id', { id: id })
+      .execute();
+    return await this.getDetailTodoItem(id);
   }
 
   async deleteTodo(id: number) {
-    return await this.repository.delete({ id: id });
+    await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .delete()
+      .where('id=:id', { id: id })
+      .execute();
+    return `Todo Deleted`;
   }
 
   async deleteAllTodo() {
-    const all_todo = await this.repository.find();
-    return await this.repository.delete(all_todo.map(({ id }) => id));
+    await this.todoDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .delete()
+      .execute();
+    return `All Todo deleted`;
   }
 }

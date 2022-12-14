@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { TodoService } from 'src/todo/todo.service';
 import { TodoEntity } from 'src/entities/todo.entity';
 
@@ -12,38 +12,63 @@ export class UserService {
   constructor(
     @Inject(TodoService)
     private readonly todoService: TodoService,
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
+    @InjectDataSource() private readonly userDataSource: DataSource,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserData: CreateUserDto) {
     try {
-      const newUser = await this.userRepository.save(
-        this.userRepository.create(createUserDto),
-      );
+      const createdUser = await this.userDataSource
+        .getRepository(TodoEntity)
+        .createQueryBuilder('todo')
+        .insert()
+        .into(UserEntity)
+        .values(createUserData)
+        .execute();
       const todoData = new TodoEntity();
-      todoData.title = `${createUserDto.fullName}'s TODO`;
+      todoData.title = `${createUserData.fullName}'s TODO`;
       todoData.description = `This todo has been created from user`;
       await this.todoService.createTodo(todoData);
-      return newUser;
+      return this.findOne(createdUser.identifiers[0].id);
     } catch (error) {
       console.log(error);
     }
   }
 
   async findAll() {
-    return await this.userRepository.find();
+    return await this.userDataSource
+      .getRepository(UserEntity)
+      .createQueryBuilder('todo')
+      .select('todo')
+      .getMany();
   }
 
   async findOne(id: number) {
-    return await this.userRepository.findOneBy({ id: id });
+    return await this.userDataSource
+      .getRepository(UserEntity)
+      .createQueryBuilder('todo')
+      .select('todo')
+      .where('id=:id', { id: id })
+      .getOne();
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserData: UpdateUserDto) {
+    await this.userDataSource
+      .getRepository(UserEntity)
+      .createQueryBuilder('todo')
+      .update(UserEntity)
+      .set(updateUserData)
+      .where('id=:id', { id: id })
+      .execute();
+    return await this.findOne(id);
   }
 
   async remove(id: number) {
-    return await this.userRepository.delete(id);
+    await this.userDataSource
+      .getRepository(TodoEntity)
+      .createQueryBuilder('todo')
+      .delete()
+      .where('id=:id', { id: id })
+      .execute();
+    return `Todo Deleted`;
   }
 }
