@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodoService } from './todo.service';
-import { Todo } from '../entities/todo.entity';
+import { TodoEntity } from '../entities/todo.entity';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('todo')
@@ -28,7 +28,7 @@ export class TodoController {
   }
 
   @Post()
-  async createTodo(@Body() todoItem: CreateTodoDto): Promise<Todo> {
+  async createTodo(@Body() todoItem: CreateTodoDto): Promise<TodoEntity> {
     return await this.todoService.createTodo(todoItem);
   }
 

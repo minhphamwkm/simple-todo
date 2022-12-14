@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
-import { Todo } from '../entities/todo.entity';
+import { TodoEntity } from '../entities/todo.entity';
 
 @Injectable()
 export class TodoService {
-  @InjectRepository(Todo)
-  private readonly repository: Repository<Todo>;
+  @InjectRepository(TodoEntity)
+  private readonly repository: Repository<TodoEntity>;
 
   async getAllTodo() {
     return await this.repository.find();
