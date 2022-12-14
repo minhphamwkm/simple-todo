@@ -21,22 +21,22 @@ export class Todo {
   @Column({ type: 'boolean', nullable: true })
   completed: boolean;
 
-  @Column({ type: 'simple-array', nullable: true })
+  @Column({ type: 'varchar', nullable: true, array: true })
   tag: Array<string>;
 
   @Column({ type: 'timestamp', nullable: true })
-  remind_at: Date;
+  remindAt: Date;
 
   /*
    * Create and Update Date Columns
    */
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deleted_at: Date;
+  deletedAt: Date;
 }

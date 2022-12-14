@@ -9,8 +9,6 @@ export class TodoService {
   @InjectRepository(Todo)
   private readonly repository: Repository<Todo>;
 
-  // service all service
-
   async getAllTodo() {
     return await this.repository.find();
   }

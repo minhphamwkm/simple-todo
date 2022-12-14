@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { Allow, IsNotEmpty } from 'class-validator';
 
 export class CreateTodoDto {
   @IsNotEmpty()
@@ -8,10 +8,10 @@ export class CreateTodoDto {
 export class UpdateTodoDto {
   @IsNotEmpty()
   title: string;
-  @IsOptional()
+  @Allow()
   description?: string;
-  @IsOptional()
+  @Allow()
   completed: boolean;
-  @IsOptional()
+  @Allow()
   remind_at: Date;
 }

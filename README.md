@@ -6,19 +6,38 @@
 
 | name        | type         |
 | ----------- | ------------ |
-| created_at  | datetime     |
-| updated_at  | datetime     |
-| deleted_at  | datetime     |
+| createdAt   | datetime     |
+| updatedAt   | datetime     |
+| deletedAt   | datetime     |
 | id          | integer (PK) |
 | title       | varchar(256) |
 | description | varchar      |
-| completed   | boolean      |
+| isCompleted | boolean      |
 | tag         | varchar[]    |
-| remind_at   | datetime     |
+| remindAt    | datetime     |
 | image       | varchar      |
 
-## Spec
+2. user
+
+| name        | type         |
+| ----------- | ------------ |
+| createdAt   | datetime     |
+| updatedAt   | datetime     |
+| deletedAt   | datetime     |
+| id          | integer (PK) |
+| username    | varchar(256) |
+| password    | varchar      |
+| email       | varchar      |
+| fullName    | boolean      |
+| dateOfBirth | datetime     |
+| gender      | datetime     |
 
 ## Quick start
 
-## How to
+Run project:
+    make run
+
+## Spec
+
+Visit the documentation: http://localhost:3000
+
