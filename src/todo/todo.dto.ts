@@ -8,10 +8,10 @@ export class CreateTodoDto {
 export class UpdateTodoDto {
   @IsNotEmpty()
   title: string;
-  // @IsOptional()
+  @IsOptional()
   description?: string;
-  // @IsOptional()
-  // completed: boolean;
-  // @IsOptional()
-  // remind_at: Date;
+  @IsOptional()
+  completed: boolean;
+  @IsOptional()
+  remind_at: Date;
 }
