@@ -35,7 +35,10 @@
 ## Quick start
 
 Run project:
-    make run
+
+```
+make run
+```
 
 ## Spec
 
