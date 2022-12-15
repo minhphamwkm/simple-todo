@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodoService } from './todo.service';
-import { TodoEntity } from '../entities/todo.entity';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('todo')
