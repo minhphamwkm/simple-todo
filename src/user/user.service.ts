@@ -1,11 +1,12 @@
+import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from './dto/create-user.dto';
+import { DataSource } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+import { TodoEntity } from 'src/entities/todo.entity';
+import { TodoService } from 'src/todo/todo.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
-import { DataSource } from 'typeorm';
-import { TodoService } from 'src/todo/todo.service';
-import { TodoEntity } from 'src/entities/todo.entity';
 
 @Injectable()
 export class UserService {
@@ -19,6 +20,9 @@ export class UserService {
 
   async create(createUserData: CreateUserDto) {
     try {
+      const passwordInPlaintext = createUserData.password;
+      const hashedPassword = await bcrypt.hash(passwordInPlaintext, 10);
+      createUserData.password = hashedPassword;
       const createdUser = await this.queryRunner.manager.insert(
         UserEntity,
         createUserData,

@@ -1,9 +1,14 @@
-import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
-import { CreateTodoDto } from 'src/todo/todo.dto';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsStrongPassword,
+} from 'class-validator';
 export class CreateUserDto {
   @IsNotEmpty()
   username: string;
   @IsNotEmpty()
+  @IsStrongPassword()
   password: string;
   @IsEmail()
   email: string;
