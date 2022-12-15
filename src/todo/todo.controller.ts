@@ -11,7 +11,7 @@ import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodoService } from './todo.service';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('todos')
+@Controller('users/:userId/todos')
 @ApiTags('TodoService')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}

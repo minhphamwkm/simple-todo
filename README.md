@@ -1,5 +1,15 @@
 # Simple TODO API
 
+## Concept
+
+Simple TODO API includes:
+- Simple User management:
+  - CRUD (One User)
+  - Authentication
+  - Login session
+- Simple TODO management:
+  - TODO action for each user (only owner can perform actions)
+
 ## Model
 
 1. todo
@@ -10,6 +20,7 @@
 | updatedAt   | datetime     |
 | deletedAt   | datetime     |
 | id          | integer (PK) |
+| ownerId     | integer      |
 | title       | varchar(256) |
 | description | varchar      |
 | isCompleted | boolean      |
@@ -28,19 +39,25 @@
 | username    | varchar(256) |
 | password    | varchar      |
 | email       | varchar      |
-| fullName    | boolean      |
+| fullName    | varchar      |
 | dateOfBirth | datetime     |
 | gender      | datetime     |
+| avatar      | varchar      |
 
 ## Quick start
 
 Run project:
 
 ```
-make run
+make run-app
 ```
 
-## Spec
+Test project:
+```
+make run-test
+```
 
-Visit the documentation: http://localhost:3000
+## API Documentation
+
+Run app and visit the documentation: http://localhost:3000
 

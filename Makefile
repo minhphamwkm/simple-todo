@@ -1,5 +1,8 @@
 install:
 	npm install
 
-run:
+run-app:
 	npm run start:dev
+
+run-test:
+	npm test

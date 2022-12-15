@@ -12,6 +12,7 @@ export class TodoEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Column({ type: 'number', nullable: false })
   @Column({ type: 'varchar', length: 256 })
   title: string;
 
