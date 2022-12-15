@@ -7,7 +7,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('todo')
 export class TodoEntity {
   @PrimaryGeneratedColumn()
   id!: number;
