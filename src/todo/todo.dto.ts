@@ -1,4 +1,4 @@
-import { Allow, IsNotEmpty, IsOptional } from 'class-validator';
+import { Allow, IsNotEmpty } from 'class-validator';
 
 export class CreateTodoDto {
   @IsNotEmpty()
@@ -6,7 +6,6 @@ export class CreateTodoDto {
 }
 
 export class UpdateTodoDto {
-  @IsOptional()
   @IsNotEmpty()
   title: string;
   @Allow()

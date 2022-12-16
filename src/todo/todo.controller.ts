@@ -17,32 +17,42 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async getAllTodo() {
-    return await this.todoService.getAllTodo();
+  async getAllTodo(@Param('userId') userId: number) {
+    return await this.todoService.getAllTodo(+userId);
   }
 
   @Get(':id')
-  async getDetailTodoItem(@Param('id') id: number) {
-    return await this.todoService.getDetailTodoItem(+id);
+  async getDetailTodoItem(
+    @Param('userId') userId: number,
+    @Param('id') id: number,
+  ) {
+    return await this.todoService.getDetailTodoItem(+userId, +id);
   }
 
   @Post()
-  async createTodo(@Body() todoItem: CreateTodoDto) {
-    return await this.todoService.createTodo(todoItem);
+  async createTodo(
+    @Param('userId') userId: number,
+    @Body() todoItem: CreateTodoDto,
+  ) {
+    return await this.todoService.createTodo(+userId, todoItem);
   }
 
   @Put(':id')
-  async updateTodo(@Param('id') id: number, @Body() todoItem: UpdateTodoDto) {
-    return await this.todoService.updateTodo(+id, todoItem);
+  async updateTodo(
+    @Param('userId') userId: number,
+    @Param('id') id: number,
+    @Body() todoItem: UpdateTodoDto,
+  ) {
+    return await this.todoService.updateTodo(+userId, +id, todoItem);
   }
 
   @Delete(':id')
-  async deleteTodo(@Param('id') id: number) {
-    return await this.todoService.deleteTodo(+id);
+  async deleteTodo(@Param('userId') userId: number, @Param('id') id: number) {
+    return await this.todoService.deleteTodo(+userId, +id);
   }
 
   @Delete()
-  async deleteAllTodo() {
-    return await this.todoService.deleteAllTodo();
+  async deleteAllTodo(@Param('userId') userId: number) {
+    return await this.todoService.deleteAllTodo(+userId);
   }
 }

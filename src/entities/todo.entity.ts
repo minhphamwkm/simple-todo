@@ -5,14 +5,17 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  BaseEntity,
 } from 'typeorm';
 
 @Entity('todo')
-export class TodoEntity {
+export class TodoEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column({ type: 'number', nullable: false })
+  owner_id: number;
+
   @Column({ type: 'varchar', length: 256 })
   title: string;
 
