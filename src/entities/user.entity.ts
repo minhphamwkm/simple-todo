@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -8,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('user')
-export class UserEntity {
+export class UserEntity extends BaseEntity {
   /*
    * Create and Update Date Columns
    */
