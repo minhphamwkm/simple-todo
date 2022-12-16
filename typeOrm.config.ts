@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { UserEntity } from './src/entities/user.entity';
-import { TodoEntity } from './src/entities/todo.entity';
+import * as path from 'path';
+
+const migrationsPath = 'migrations/*.ts';
 
 config();
-
 const configService = new ConfigService();
 
 export default new DataSource({
@@ -15,5 +15,6 @@ export default new DataSource({
   username: configService.get('DATABASE_USER'),
   password: configService.get('DATABASE_PASSWORD'),
   database: configService.get('DATABASE_NAME'),
-  entities: [UserEntity, TodoEntity],
+  entities: [path.join(__dirname, '**/*.entity{.ts,.js}')],
+  migrations: [migrationsPath],
 });
