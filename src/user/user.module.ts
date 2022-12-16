@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TodoService } from 'src/todo/todo.service';
-import { TodoEntity } from 'src/entities/todo.entity';
+import { TodoService } from '../todo/todo.service';
+import { TodoEntity } from '../entities/todo.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, TodoEntity])],

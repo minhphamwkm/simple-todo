@@ -26,18 +26,18 @@ export class TodoEntity {
   tag: Array<string>;
 
   @Column({ type: 'timestamp', nullable: true })
-  remindAt: Date;
+  remind_at: Date;
 
   /*
    * Create and Update Date Columns
    */
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
+  updated_at!: Date;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deletedAt: Date;
+  deleted_at: Date;
 }

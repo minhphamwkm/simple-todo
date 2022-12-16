@@ -3,8 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { DataSource } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { TodoEntity } from 'src/entities/todo.entity';
-import { TodoService } from 'src/todo/todo.service';
+import { TodoEntity } from '../entities/todo.entity';
+import { TodoService } from '../todo/todo.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
 

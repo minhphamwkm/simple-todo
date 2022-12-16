@@ -14,13 +14,13 @@ export class UserEntity {
    */
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updated_at: Date;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deletedAt: Date;
+  deleted_at: Date;
 
   /*
    * Table & Column Constants
@@ -39,10 +39,10 @@ export class UserEntity {
   password: string;
 
   @Column({ type: 'varchar', nullable: true })
-  fullName: string;
+  full_name: string;
 
   @Column({ type: 'timestamp', nullable: true })
-  dateOfBirth: Date;
+  date_of_birth: Date;
 
   @Column({ type: 'varchar', nullable: true })
   gender: string;
