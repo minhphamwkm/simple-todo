@@ -49,12 +49,12 @@ Simple TODO API includes:
 Run project:
 
 ```
-make run-app
+npm run start:dev
 ```
 
 Test project:
 ```
-make run-test
+npm run test
 ```
 
 ## API Documentation
